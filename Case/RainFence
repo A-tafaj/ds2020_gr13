@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication6
+{
+    class Program
+    {
+        public static string text = "", text2 = "";
+        public static int i = 0;
+        static void Main(string[] args)
+        {
+            int mtrx = 1;
+            while (mtrx == 1 || mtrx == 2)
+            {
+                Console.WriteLine("ALGORITMI RAIL-FENCE:\n\n"+ "1:ENKODIMI " + "\n" + "2:DEKODIMI ");
+                mtrx = Convert.ToInt32(Console.ReadLine());
+                if (mtrx == 1)
+                    Enkodimi();
+                else
+                    Dekodimi();
+            }
+            Console.ReadKey();
+        }
+        static void Enkodimi()
+        {
+            Console.WriteLine("Shkruaj nje tekst per te koduar: ");
+            text = Console.ReadLine();
+            text2 = "";
+            string text3 = "";
+            for (i = 0; i < text.Length; i += 2)
+            {
+                text2 += text[i];
+                if ((i + 1) != text.Length)
+                    text3 += text[i + 1];
+            }
+            text2 += text3;
+            Console.WriteLine("Teksti i enkoduar eshte:  " + text2);
+        }
+        static void Dekodimi()
+        {
+            Console.WriteLine("Shkruaj kodin per dekodim: ");
+            text = Console.ReadLine();
+            text2 = "";
+            int len = (text.Length + 1) / 2;
+            for (i = 0; i < len; i++)
+            {
+                text2 += text[i];
+                if ((len + i) < text.Length)
+                    text2 += text[len + i];
+            }
+            Console.WriteLine(text2);
+        }
+    }
+}
