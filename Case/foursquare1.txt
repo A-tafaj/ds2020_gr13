@@ -135,3 +135,6 @@ Encode: rccscsmmazrjatnyfe
 Decode: thisisatextmessage
 
 ```
+
+// Code tryout ;
+// https://www.boxentriq.com/code-breaking/four-square-cipher 
