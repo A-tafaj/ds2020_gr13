@@ -1,5 +1,6 @@
 using System;
-using System.Security.Cryptography;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 namespace ConsoleApp15
 {
@@ -7,7 +8,23 @@ namespace ConsoleApp15
 	class Program
 	{
 
-		private string clean_string(string s)
+		 static void Main(string[] args)
+		{
+			string message = "this is a text message";
+			string keyword1 = "example";
+			string keyword2 = "keyboard";
+			string message1 = "rccscsmmazrjatnyfe"
+				;
+			string enkodimi = encode(message, keyword1, keyword2);
+			string dekodimi = decode(message1, keyword1, keyword2);
+			Console.WriteLine("Enkodimi: "  +enkodimi);
+			Console.WriteLine("Dekodimi: " + dekodimi);
+
+
+		}
+
+
+		private static string clean_string(string s)
 		{
 			string return_string = "";
 			for (int i = 0; i < s.Length; i++)
@@ -20,7 +37,7 @@ namespace ConsoleApp15
 			}
 			return return_string;
 		}
-		private string create_encoding(string key)
+		private static string create_encoding(string key)
 		{
 			string keyword_encoding = "abcdefghijklmnoprstuvwxyz";
 			for (int i = key.Length - 1; i >= 0; i -= 1)
@@ -34,7 +51,7 @@ namespace ConsoleApp15
 			}
 			return keyword_encoding;
 		}
-		private string encode_digraph(string dg, string block1, string block2)
+		private static string encode_digraph(string dg, string block1, string block2)
 		{
 			string encoded_digraph = "";
 			string alphabet_block = "abcdefghijklmnoprstuvwxyz";
@@ -54,7 +71,7 @@ namespace ConsoleApp15
 			encoded_digraph = encoded_digraph + second_encoded_letter;
 			return encoded_digraph;
 		}
-		private string decode_digraph(string dg, string block1, string block2)
+		private static string decode_digraph(string dg, string block1, string block2)
 		{
 			string decoded_digraph = "";
 			string alphabet_block = "abcdefghijklmnoprstuvwxyz";
@@ -74,7 +91,7 @@ namespace ConsoleApp15
 			decoded_digraph = decoded_digraph + second_decoded_letter;
 			return decoded_digraph;
 		}
-		private string encode(string msg, string key1, string key2)
+		private static string encode(string msg, string key1, string key2)
 		{
 			string encoded_message = "";
 			string block1 = create_encoding(key1);
@@ -93,7 +110,7 @@ namespace ConsoleApp15
 			}
 			return encoded_message;
 		}
-		private string decode(string msg, string key1, string key2)
+		private static string decode(string msg, string key1, string key2)
 		{
 			string decoded_message = "";
 			string block1 = create_encoding(key1);
@@ -108,17 +125,6 @@ namespace ConsoleApp15
 			}
 			return decoded_message;
 		}
-		static int Main()
-		{
-			string message = "this is a text message";
-			string keyword1 = "example";
-			string keyword2 = "keyboard";
-			string encoded_message = encode(message, keyword1, keyword2);
-			string decoded_message = decode(encoded_message, keyword1, keyword2);
-			Console.Write("Encoded message: ");
-			Console.Write(encoded_message);
-			Console.Write("\nDecoded message: ");
-			Console.Write(decoded_message);
-		}
+		
 	}
 }
