@@ -15,12 +15,10 @@ namespace ConsoleApp15
 			string keyword2 = "keyboard";
 			string message1 = "rccscsmmazrjatnyfe"
 				;
-			string enkodimi = encode(message, keyword1, keyword2);
-			string dekodimi = decode(message1, keyword1, keyword2);
-			Console.WriteLine("Enkodimi: "  +enkodimi);
-			Console.WriteLine("Dekodimi: " + dekodimi);
-
-
+			string encode0 = encode(message, keyword1, keyword2);
+			string decode0 = decode(message1, keyword1, keyword2);
+			Console.WriteLine("Encode: "  +encode0);
+			Console.WriteLine("Decode: " + decode0);
 		}
 
 
@@ -67,8 +65,8 @@ namespace ConsoleApp15
 			int second_encoded_index = 5 * second_row + first_column;
 			char first_encoded_letter = block1[first_encoded_index];
 			char second_encoded_letter = block2[second_encoded_index];
-			encoded_digraph = encoded_digraph + first_encoded_letter;
-			encoded_digraph = encoded_digraph + second_encoded_letter;
+			encoded_digraph += first_encoded_letter;
+			encoded_digraph += second_encoded_letter;
 			return encoded_digraph;
 		}
 		private static string decode_digraph(string dg, string block1, string block2)
@@ -87,8 +85,8 @@ namespace ConsoleApp15
 			int second_decoded_index = 5 * second_row + first_column;
 			char first_decoded_letter = alphabet_block[first_decoded_index];
 			char second_decoded_letter = alphabet_block[second_decoded_index];
-			decoded_digraph = decoded_digraph + first_decoded_letter;
-			decoded_digraph = decoded_digraph + second_decoded_letter;
+			decoded_digraph += first_decoded_letter;
+			decoded_digraph += second_decoded_letter;
 			return decoded_digraph;
 		}
 		private static string encode(string msg, string key1, string key2)
