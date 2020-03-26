@@ -151,3 +151,13 @@ namespace FOURSQUARE_CIPHER
 		}
 	}
 }
+
+##output
+```
+C:\Users\Admin\source\repos\FOURSQUARE_CIPHER\bin\Debug\netcoreapp3.1>FOURSQUARE_CIPHER.exe encrypt "THIS IS A SECRET MESSAGE" example keyboard
+Encryption: rccscsamaoterjatnyfe
+
+C:\Users\Admin\source\repos\FOURSQUARE_CIPHER\bin\Debug\netcoreapp3.1>FOURSQUARE_CIPHER.exe decrypt "rccscsamaoterjatnyfe" example keyboard
+Decryption: thisisasecretmessage
+```
+
