@@ -5,40 +5,38 @@ namespace FOURSQUARE_CIPHER
     class Program
     {
         static void Main(String[] args)	
+	{
+		if (args.Length > 0)
 		{
-			if(args[0].Equals("f"))
+			if (args[0] == "encrypt")
 			{
-				string key1 = args[1];
-				string key2 = args[1];
-				string plaintext = args[2];
-				string ciphertext = Encrypt(plaintext, key1,key2);
-				Console.WriteLine("Encrypted text: " + ciphertext);
+				string plaintext = args[1];
+				string key1 = args[2];
+				string key2 = args[3];
+				Console.WriteLine("Encryption: " + Encrypt(plaintext, key1, key2));
 			}
-
-			else
+			else if (args[0] == "decrypt")
 			{
-				string key1 = args[1];
-				string key2 = args[1];
-				string ciphertext = args[2];
-				string decryptedText = Decrypt(ciphertext, key1,key2);
-
-				Console.WriteLine("Decrypted text: " + decryptedText);
+				string ciphertext = args[1];
+				string key1 = args[2];
+				string key2 = args[3];
+				Console.WriteLine("Decryption: " + Decrypt(ciphertext, key1, key2));
 			}
 		}
-
-		private static string C_check(string s)
+	}
+	private static string C_check(string s)
+	{
+		string cleanTxt = "";
+		for (int i = 0; i < s.Length; i++)
 		{
-			string cleanTxt = "";
-			for (int i = 0; i < s.Length; i++)
+			char character = s[i];
+			if (char.IsLetter(character) && character != 'q')
 			{
-				char character = s[i];
-				if (char.IsLetter(character) && character != 'q')
-				{
-					cleanTxt += char.ToLower(character);
-				}
+				cleanTxt += char.ToLower(character);
 			}
-			return cleanTxt;
 		}
+		return cleanTxt;
+	}
 
 		private static string Encoding(string key)
 		{
