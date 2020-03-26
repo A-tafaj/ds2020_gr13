@@ -126,3 +126,12 @@ namespace ConsoleApp15
 		
 	}
 }
+
+
+```
+OUTPUT ;
+
+Encode: rccscsmmazrjatnyfe
+Decode: thisisatextmessage
+
+```
