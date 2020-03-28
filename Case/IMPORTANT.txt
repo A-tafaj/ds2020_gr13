@@ -1,0 +1,75 @@
+using System;
+using System.Globalization;
+using System.Text;
+//Fillimisht duhet te cekni se cilin shembull deshironi ta ekzekutoni :Case apo Sentence .
+/*Ne fillim duhet te cekni se si deshironi ta ndryshoni "case" ne njeren nga keto llojet:
+ (lower,upper,capitalize,inverse,alternate),nese jepet gabim do te paraqes si "Invalid orders"
+ */
+namespace CASE
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            if (args.Length > 0)
+            {
+                if (args[0]=="case")
+                {
+
+                }
+                else if(args[0]=="sentence")
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+        }
+        static string Capitalize(string capital)
+        {  
+            capital = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(capital.ToLower());
+            return capital;
+        }
+        
+        static string Inverse(string inv)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < inv.Length; i++)
+            {
+
+                if ((inv[i] >= 'a' && inv[i] <= 'z') || inv[i] == ' ')
+                {
+                    sb.Append(inv[i].ToString().ToUpper());
+                }
+                else if ((inv[i] >= 'A' && inv[i] <= 'Z') || inv[i] == ' ')
+                {
+                    sb.Append(inv[i].ToString().ToLower());
+                }
+            }
+            inv = sb.ToString();
+            return inv;
+
+        }
+        static string Alternating(string alter)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < alter.Length; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    sb.Append(alter[i].ToString().ToLower());
+                }
+                else
+                {
+                    sb.Append(alter[i].ToString().ToUpper());
+                }
+            }
+            alter = sb.ToString();
+            return alter;
+            
+        }
+    }
+}
+
