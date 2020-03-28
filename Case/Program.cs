@@ -195,4 +195,67 @@ namespace Case
             }
             
         }
-    } 
+    }
+/*Shembulli per Sentence:
+ *Case or Sentence ?
+sentence
+Shkruani fjalite:
+pershendetje,
+fjalia e pare.
+fjalia e dyte!
+fjalia e trete.
+Grupi i dyte i fjalive-->
+pershendetje,
+fjalia e pare.
+fjalia e dyte!
+fjalia e trete.
+============================================================================
+pershendetje,  Fjalia E pare.  FJALIA E DYTE!  fjAlia E trEte.
+Pershendetje,  fjalia e pare.  Fjalia e dyte!  Fjalia e trete.
+============================================================================
+ */
+/*=============================================================================
+ * Shembulli per case
+ * Case or Sentence ?
+case
+Case form:lower
+Convertion :LOWER
+Enter a string please:Pershendetje nga FIEK!
+pershendetje nga fiek!
+=====================================================
+    Case or Sentence ?
+case
+Case form:upper
+Convertion :UPPER
+Enter a string please:Pershendetje nga FIEK!
+PERSHENDETJE NGA FIEK!
+==========================================================
+    Case or Sentence ?
+case
+Case form:capitalize
+Convertion :CAPITALIZE
+Enter a string please:Pershendetje nga FIEK!
+Pershendetje Nga Fiek!
+
+    =====================================================
+    Case or Sentence ?
+case
+Case form:inverse
+Convertion :INVERSE
+Enter a string please:Pershendetje nga FIEK!
+pERSHENDETJE NGA fiek
+
+==========================================================
+Case or Sentence ?
+case
+Case form:alternate
+Convertion :ALTERNATE
+Enter a string please:Pershendetje nga FIEK!
+pErShEnDeTjE NgA FiEk!
+
+
+C:\Users\HP\source\repos\Case\Case\bin\Debug\netcoreapp3.1\Case.exe (process 10284) exited with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+ */
