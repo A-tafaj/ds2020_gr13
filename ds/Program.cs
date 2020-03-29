@@ -95,6 +95,36 @@ namespace ds
 						Console.WriteLine("CASES: <lower> <upper> <capitalize> <inverse> <alternating> <sentence> ");
 					}
 				}
+				else if (args[0] == "rail-fence")
+				{
+					try
+					{
+						if (args[1] == "encrypt")
+						{
+							string plaint = args[2];
+							string rail = args[3];
+							int railsNr = Int32.Parse(rail);
+							Console.WriteLine(RF.Rencode(plaint, railsNr));
+						}
+						else if (args[1] == "decrypt")
+						{
+							string ciphert = args[2];
+							string rail = args[3];
+							int railsNr = Int32.Parse(rail);
+							Console.WriteLine(RF.Rdecode(ciphert, railsNr));
+						}
+						else
+						{
+							Console.WriteLine("You must choose beetwen: <encrypt> <decrypt>");
+						}
+
+
+					}
+					catch (Exception)
+					{
+						Console.WriteLine("Continue: <plaintext> <rails>");
+					}
+				}
 				else
 				{
 					Console.WriteLine("You should provide a valid METHOD: <four-square> <case> <rail-fence>");
