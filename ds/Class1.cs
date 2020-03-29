@@ -22,12 +22,11 @@ namespace ds
 		}
 		static string Encoding(string key)
 		{
-			key = C_check(key);
 			string keyword_encoding = "abcdefghiklmnopqrstuvwxyz";
 
 			for (int i = key.Length - 1; i >= 0; i--)
 			{
-				if (key[i] != 'j')
+				if (key[i] != 'j'||char.IsDigit(key[i])||char.IsWhiteSpace(key[i]))
 				{
 					var index = keyword_encoding.IndexOf(key[i]);
 					keyword_encoding = keyword_encoding.Remove(index, 1);
@@ -38,7 +37,6 @@ namespace ds
 			}
 			return keyword_encoding;
 		}
-
 		private static string Encode_d(string diag, string block1, string block2)
 		{
 			string encoded_digraph = "";

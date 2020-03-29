@@ -23,7 +23,8 @@ namespace ds
 
 							catch (Exception)
 							{
-								Console.WriteLine("You should put arguments in this order: <plaintext> <key1> <key2>");
+								Console.WriteLine("You should put arguments in this order: <plaintext> <key1> <key2>" +
+									"\nIf plaintext is a sentence, put them in \"\", key must be one word and contain only letters!");
 							}
 						}
 						else if (args[1] == "decrypt")
