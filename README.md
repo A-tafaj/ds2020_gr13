@@ -59,3 +59,5 @@
     C:\Users\Admin\Desktop\MOST_IMPORTANT\ds\bin\Debug\netcoreapp3.1>ds rail-fence encrypt "takohemi neser" 3
    tomneahierke s
 ```
+
+##### from internet : stackoverflow.com informit.com etc
