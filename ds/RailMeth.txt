@@ -1,0 +1,123 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace finalRail
+{
+    class Class1
+    {
+        public static string encode(string plaintext, int rails)
+        {
+            string ciphertext = "";
+            bool kontrollo = false;
+            int j = 0;
+            int rreshta = rails;
+            int kolona = plaintext.Length;
+            //char[] plainArray = plaintext.ToCharArray();
+
+            char[,] a = new char[rreshta, kolona];
+            for (int i = 0; i < kolona; i++)
+            {
+                if (j == 0 || j == rails - 1)
+                    kontrollo = !kontrollo;
+
+                a[j, i] = plaintext[i];
+
+                if (kontrollo)
+                    j++;
+                else
+                    j = 0;
+            }
+            int numero = 0;
+            //+++++++++++++++++++ print
+            for (int i = 0; i < rreshta; i++)
+            {
+                for (int k = 0; k < kolona; k++)
+                {
+                    Console.Write(a[i, k] + " ");
+                }
+                Console.WriteLine();
+            }
+            for (int i = 0; i < rreshta; i++)
+            {
+                for (int k = 0; k < kolona; k++)
+                {
+                    if (a[i, k] != 0)
+                        ciphertext += a[i, k];
+                }
+            }
+            
+            
+
+
+            return ciphertext;
+            // throw new NotImplementedException();
+        }
+        
+        
+        /**/
+        public static string decode(string ciphertext, int rails)
+        {
+            //string plaintext="";
+            bool checkdown = false;
+            int j = 0;
+            int row = rails;
+            int col = ciphertext.Length;
+            char[,] a = new char[row,col];
+
+            //first of all mark the rails position by * in the matrix
+            for (int i = 0; i < col; i++)
+            {
+                if (j == 0 || j == row - 1)
+                    checkdown = !checkdown;
+                a[j,i] = '*';
+                if (checkdown)
+                    j++;
+                else
+                    j--;
+            }
+
+            //now enter the character of cipheetext in the matrix positon that have * symbol
+
+            int index = 0;
+            for (int i = 0; i < row; i++)
+            {
+                for (int k = 0; k < col; k++)
+                {
+                    if (a[i,k] == '*' && index < ciphertext.Length)
+                    {
+                        a[i, k] = ciphertext[i];/*.charAt(index++);*/
+                    }
+                }
+            }
+
+            // visit each character in rails order as character are put in the encryption function
+            /*for (int i = 0; i < row; i++)
+           {
+               for (int k = 0; k < col; k++)
+               {
+                   Console.Write(a[i,k] + "\t");
+               }
+               Console.WriteLine();
+           }*/
+
+            checkdown = false;
+            String s = "";
+            j = 0;
+
+            for (int i = 0; i < col; i++)
+            {
+                if (j == 0 || j == row - 1)
+                    checkdown = !checkdown;
+                s += a[j,i];
+                if (checkdown)
+                    j++;
+                else j--;
+            }
+
+            return s;
+            //throw new NotImplementedException();
+        }
+    }
+}
+    
