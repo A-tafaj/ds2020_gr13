@@ -2,7 +2,12 @@ using System;
 using System.Security.Cryptography;
 using System.IO;
 using System.Text;
+//===========================================================================
 
+C:\Users\HP\source\repos\rsaa\rsaa\bin\Debug\netcoreapp3.1>rsaa create-user Kompjuterika
+Eshte krijua celsi privat 'keys/Kompjuterika.xml'
+Eshte krijua celse publik 'keys/Kompjuterika.pub.xml'
+//==============================================================================
 namespace RsaSignature
 {
     class Program
