@@ -1,13 +1,8 @@
-﻿using System;
+using System;
 using System.Security.Cryptography;
 using System.IO;
 using System.Text;
-/*===========================================================================
 
-C:\Users\HP\source\repos\rsaa\rsaa\bin\Debug\netcoreapp3.1>rsaa create-user Kompjuterika
-Eshte krijua celsi privat 'keys/Kompjuterika.xml'
-Eshte krijua celse publik 'keys/Kompjuterika.pub.xml'
-==============================================================================*/
 namespace RsaSignature
 {
     class Program
@@ -28,21 +23,53 @@ namespace RsaSignature
 
             RsaEncryptor rsa;
 
-            if (command == "create-user")
+            if (command=="create-user")
+            {
+                    
+                        string command2 = args[1];
+                StringBuilder sb = new StringBuilder();
+                for(int i = 0; i < command2.Length; i++)
+                {
+                    if (command2[i] >= 'a' && command2[i] <= 'z' && command2[i] >= 'A' && command2[i] >= 'Z' && command2[i] >= '0' && command2[i] >= '9')
+                    {
+                        sb.Append(command2[i].ToString());
+                    }
+                    else
+                    {
+                        goto Done;  
+                    }
+                }
+                command2 = sb.ToString();
+                rsa = new RsaEncryptor();
+                        string privateKey = rsa.GetPrivateKey();
+                        string publicKey = rsa.GetPublicKey();
+                        File.WriteAllText("keys/"+command2+".xml", privateKey);
+                        File.WriteAllText("keys/"+command2+".pub.xml", publicKey);
+                string privkey = "keys/" + command2 + ".xml";
+                string pubkey = "keys/" + command2 + ".pub.xml";
+                Console.WriteLine("Eshte krijua celsi privat '"+privkey+"'");
+                Console.WriteLine("Eshte krijua celse publik '"+pubkey+"'");
+                Done:
+                Console.WriteLine("Argumenti i dyte duhet te jete A-Z,a-z,0-9.");
+
+            }
+/*            else if (command == "delete-user")
             {
 
                 string command2 = args[1];
                 rsa = new RsaEncryptor();
                 string privateKey = rsa.GetPrivateKey();
                 string publicKey = rsa.GetPublicKey();
-                File.WriteAllText("keys/" + command2 + ".xml", privateKey);
-                File.WriteAllText("keys/" + command2 + ".pub.xml", publicKey);
                 string privkey = "keys/" + command2 + ".xml";
                 string pubkey = "keys/" + command2 + ".pub.xml";
-                Console.WriteLine("Eshte krijua celsi privat '" + privkey + "'");
-                Console.WriteLine("Eshte krijua celse publik '" + pubkey + "'");
 
-            }
+                string fileKey = privkey;
+                Console.WriteLine(File.Exists(fileKey) ?   : "File does not exist.");
+
+                Console.WriteLine("Eshte larguar celsi privat '" + privkey + "'");
+                Console.WriteLine("Eshte larguar celse publik '" + pubkey + "'");
+
+            }*/
         }
     }
 
