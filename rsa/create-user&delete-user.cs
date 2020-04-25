@@ -36,85 +36,114 @@ namespace RsaSignature
                     throw new Exception("Mungojne argumentet.");
                 }
             }
-
             VerifyLength(1);
 
             string command = args[0];
 
             RsaEncryptor rsa;
 
-            if (command=="create-user")
+            if (command == "create-user")
             {
-                    
-                        string command2 = args[1];
-                StringBuilder sb = new StringBuilder();
-                for(int i = 0; i < command2.Length; i++)
+                try
                 {
-                    if ((command2[i] >= '0' && command2[i] <= '9') || (command2[i] >= 'A' && command2[i] <= 'Z' )|| (command2[i] >= 'a' && command2[i] <= 'z'))
+                    if (args[1].Length != 0)
                     {
-                        sb.Append(command2[i].ToString());
-                    }
-                    else
-                    {
-                        Console.WriteLine("Argumenti i dyte duhet te jete A-Z,a-z,0-9.");
-                        return;
-                    }
-                }
-                command2 = sb.ToString();
-                rsa = new RsaEncryptor();
+                        string command2 = args[1];
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < command2.Length; i++)
+                        {
+                            if ((command2[i] >= '0' && command2[i] <= '9') || (command2[i] >= 'A' && command2[i] <= 'Z') || (command2[i] >= 'a' && command2[i] <= 'z') || command2[i] == '_')
+                            {
+                                sb.Append(command2[i].ToString());
+                            }
+                            else
+                            {
+                                Console.WriteLine("Emrat duhet të përmbajnë vetëm simbolet A-Z, a-z, 0-9,dhe _");
+                                return;
+                            }
+                        }
+                        command2 = sb.ToString();
+                        rsa = new RsaEncryptor();
                         string privateKey = rsa.GetPrivateKey();
                         string publicKey = rsa.GetPublicKey();
-                string privkey = "keys/" + command2 + ".xml";
-                string pubkey = "keys/" + command2 + ".pub.xml";
-                if (File.Exists(privkey)&&File.Exists(pubkey))
+                        string privkey = "keys/" + command2 + ".xml";
+                        string pubkey = "keys/" + command2 + ".pub.xml";
+                        if (File.Exists(privkey) && File.Exists(pubkey))
+                        {
+                            Console.WriteLine("Gabim: Celesi '" + command2 + "' ekziston paraprakisht.");
+                            return;
+                        }
+                        File.WriteAllText("keys/" + command2 + ".xml", privateKey);
+                        File.WriteAllText("keys/" + command2 + ".pub.xml", publicKey);
+
+                        Console.WriteLine("Eshte krijua celsi privat '" + privkey + "'");
+                        Console.WriteLine("Eshte krijua celse publik '" + pubkey + "'");
+
+                    }
+                }
+                catch
                 {
-                    Console.WriteLine("Gabim: Celesi '"+command2+"' ekziston paraprakisht.");
+                    Console.WriteLine("Kerkesa duhet te jete: create-user <emri>");
                     return;
                 }
-                File.WriteAllText("keys/"+command2+".xml", privateKey);
-                File.WriteAllText("keys/"+command2+".pub.xml", publicKey);
-                
-                Console.WriteLine("Eshte krijua celsi privat '"+privkey+"'");
-                Console.WriteLine("Eshte krijua celse publik '"+pubkey+"'");
-                
             }
             else if (command == "delete-user")
             {
+                try
+                {
+                    if (args[1].Length != 0)
+                    {
+                        string command2 = args[1];
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < command2.Length; i++)
+                        {
+                            if ((command2[i] >= '0' && command2[i] <= '9') || (command2[i] >= 'A' && command2[i] <= 'Z') || (command2[i] >= 'a' && command2[i] <= 'z') || command2[i] == '_')
+                            {
+                                sb.Append(command2[i].ToString());
+                            }
+                            else
+                            {
+                                Console.WriteLine("Emrat duhet të përmbajnë vetëm simbolet A-Z, a-z, 0-9,dhe _");
+                                return;
+                            }
+                        }
+                        command2 = sb.ToString();
+                        rsa = new RsaEncryptor();
+                        string privateKey = rsa.GetPrivateKey();
+                        string publicKey = rsa.GetPublicKey();
+                        string privkey = "keys/" + command2 + ".xml";
+                        string pubkey = "keys/" + command2 + ".pub.xml";
+                        if (File.Exists(privkey) && File.Exists(pubkey))
+                        {
+                            File.Delete(privkey);
+                            File.Delete(pubkey);
+                            Console.WriteLine("Eshte larguar celsi privat '" + privkey + "'");
+                            Console.WriteLine("Eshte larguar celse publik '" + pubkey + "'");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Gabim: Celesi '" + command2 + "' ekziston paraprakisht.");
+                        }
+                    }
 
-                string command2 = args[1];
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < command2.Length; i++)
-                {
-                    if ((command2[i] >= '0' && command2[i] <= '9') || (command2[i] >= 'A' && command2[i] <= 'Z' )|| (command2[i] >= 'a' && command2[i] <= 'z'))
-                    {
-                        sb.Append(command2[i].ToString());
-                    }
-                    else
-                    {
-                        Console.WriteLine("Argumenti i dyte duhet te jete A-Z,a-z,0-9.");
-                        return;
-                    }
                 }
-                command2 = sb.ToString();
-                rsa = new RsaEncryptor();
-                string privateKey = rsa.GetPrivateKey();
-                string publicKey = rsa.GetPublicKey();
-                string privkey = "keys/" + command2 + ".xml";
-                string pubkey = "keys/" + command2 + ".pub.xml";
-                if (File.Exists(privkey) && File.Exists(pubkey))
+                catch
                 {
-                    File.Delete(privkey);
-                    File.Delete(pubkey);
-                    Console.WriteLine("Eshte larguar celsi privat '" + privkey + "'");
-                    Console.WriteLine("Eshte larguar celse publik '" + pubkey + "'");
-                }
-                else
-                {
-                    Console.WriteLine("Gabim: Celesi '"+command2+"' ekziston paraprakisht.");
+                    Console.WriteLine("Kerkesa duhet te jete: delete-user <emri>");
+                    return;
+
                 }
             }
+            else
+            {
+                Console.WriteLine("Kerkesa duhet te jete: create-user/delete-user <emri>");
+                return;
+            }
         }
+
     }
+        
+    
 
 
     class RsaEncryptor
