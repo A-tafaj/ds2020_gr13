@@ -26,7 +26,7 @@ namespace RS
                         string tekst = args[2];
                        // Console.WriteLine(RSA.Encrypt(tekst, publicKey)+"\n\n");
                       //  Console.WriteLine(publicKey);
-                        Console.WriteLine("\n"+Base64Encode(input) + "." + randIV+"."+ RSA.Encrypt(tekst, publicKey));
+                        Console.WriteLine("\n"+Base64Encode(input) + "." + randIV+"."+ RSA.Encrypt(randKey, publicKey));
 
                     }
                 }
