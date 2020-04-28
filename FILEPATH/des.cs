@@ -8,14 +8,19 @@ namespace FILEPATH
 {
     class des
     {
-        static string Encrypt(string plaintext, string key, string iv)
+        public static string Encrypt(string plaintext, string key, string iv)
         {
+            //string kk = Base64Decode(key);
+            //string vv = Base64Decode(iv);
             byte[] bptext = Encoding.UTF8.GetBytes(plaintext);
 
             DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
 
+
+
             objDES.Padding = PaddingMode.Zeros;
             objDES.Mode = CipherMode.ECB;
+
 
             MemoryStream ms = new MemoryStream();
             CryptoStream cs = new CryptoStream(ms, objDES.CreateEncryptor(), CryptoStreamMode.Write);
@@ -26,13 +31,12 @@ namespace FILEPATH
             return Convert.ToBase64String(bciphertext);
         }
 
-        static string Decrypt(string ciphertext, string key, string iv)
+        public static string Decrypt(string ciphertext, string key, string iv)
         {
             byte[] bcptext = Convert.FromBase64String(ciphertext);
 
             DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
-            objDES.Key = Encoding.UTF8.GetBytes(key);
-            objDES.Key = Encoding.UTF8.GetBytes(iv);
+
             objDES.Padding = PaddingMode.Zeros;
             objDES.Mode = CipherMode.ECB;
 

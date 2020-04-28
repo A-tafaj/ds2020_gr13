@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FILEPATH;
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -24,9 +25,10 @@ namespace RS
                     {
                         string publicKey = File.ReadAllText("keys/" + input + ".pub.xml");
                         string tekst = args[2];
+                        
                        // Console.WriteLine(RSA.Encrypt(tekst, publicKey)+"\n\n");
                       //  Console.WriteLine(publicKey);
-                        Console.WriteLine("\n"+Base64Encode(input) + "." + randIV+"."+ RSA.Encrypt(randKey, publicKey));
+                        Console.WriteLine("\n"+Base64Encode(input) + "." + randIV+"."+ RSA.Encrypt(randKey, publicKey)+"."+des.Encrypt(tekst,randKey,randIV));
 
                     }
                 }
