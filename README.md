@@ -1,5 +1,26 @@
 ## PROJEKTI SEMESTRAL NGA LENDA SIGURIA E TE DHENAVE - GRUPI 13
 
+
+### FAZA 2 
+
+#### <write-message> <celesi publik> <mesazhi> : <file save>*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### KOMANDA FOUR SQUARE;
 
 #### Nenkomanda encrypt;
@@ -61,3 +82,5 @@
 ```
 
 ##### from internet : stackoverflow.com informit.com etc
+
+

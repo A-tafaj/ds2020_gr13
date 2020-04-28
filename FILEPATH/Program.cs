@@ -34,7 +34,7 @@ namespace RS
 
                             // Console.WriteLine(RSA.Encrypt(tekst, publicKey)+"\n\n");
                             //  Console.WriteLine(publicKey);
-                            Console.WriteLine("\n" + Base64Encode(input) + "." + Base64Encode(randiv) + "." + RSA.Encrypt(randKey, publicKey) + "." + des.Encrypt(tekst, randKey, randiv));
+                            Console.WriteLine("\n" + WR.Base64Encode(input) + "." + WR.Base64Encode(randiv) + "." + WR.rsa_Encrypt(randKey, publicKey) + "." + WR.des_Encrypt(tekst, randKey, randiv));
                         }
                         else if (args.Length>3)
                         {
@@ -43,7 +43,7 @@ namespace RS
                             string file = args[3];
                             using (StreamWriter sw = File.CreateText("files/" + file));
 
-                            string g = ("\n" + Base64Encode(input) + "." + Base64Encode(randiv) + "." + RSA.Encrypt(randKey, publicKey) + "." + des.Encrypt(tekst, randKey, randiv));
+                            string g = ("\n" + WR.Base64Encode(input) + "." + WR.Base64Encode(randiv) + "." + WR.rsa_Encrypt(randKey, publicKey) + "." + WR.des_Encrypt(tekst, randKey, randiv));
                             File.WriteAllText("files/" + file, g);
 
                             Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin" + "files/"+file);
@@ -65,7 +65,7 @@ namespace RS
                     string third = array[2];
                     string fourth = array[3];
 
-                    string input = Base64Decode(firstElem);
+                    string input = WR.Base64Decode(firstElem);
                     string privkey = "keys/" + input + ".xml";
 
                     if (File.Exists(privkey))
@@ -73,12 +73,12 @@ namespace RS
                         Console.WriteLine("Marresi: " + input);
                         string privateKey = File.ReadAllText("keys/" + input + ".xml");
 
-                        var encodedTextBytes = Convert.FromBase64String(second);
+                        
 
-                        string iv_get = Encoding.UTF8.GetString(encodedTextBytes);
+                        string iv_get = WR.Base64Decode(second);
 
-                        string rsaKey_get = RSA.Decrypt(third, privateKey);
-                        Console.WriteLine("Dekriptimi: " + des.Decrypt(fourth, rsaKey_get, iv_get));
+                        string rsaKey_get = WR.rsa_Decrypt(third, privateKey);
+                        Console.WriteLine("Dekriptimi: " + WR.des_Decrypt(fourth, rsaKey_get, iv_get));
                     }
                     else
                     {
@@ -93,16 +93,7 @@ namespace RS
 
 
 
-                static string Base64Encode(string plainText)
-                {
-                    var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
-                    return Convert.ToBase64String(plainTextBytes);
-                }
-                static string Base64Decode(string base64EncodedData)
-                {
-                    var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
-                    return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
-                }
+                
 
             }
 
