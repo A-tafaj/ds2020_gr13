@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace FILEPATH
+namespace SIGURIA
 {
     class WR
     {
@@ -13,7 +13,7 @@ namespace FILEPATH
             //string kk = Base64Decode(key);
             //string vv = Base64Decode(iv);
             byte[] bptext = Encoding.UTF8.GetBytes(plaintext);
-          //  byte[] pllugi = Convert.FromBase64String(key);
+            //  byte[] pllugi = Convert.FromBase64String(key);
             DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
 
 

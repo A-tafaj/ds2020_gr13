@@ -3,12 +3,30 @@
 
 ### FAZA 2 
 
+
+
+#### <create-user> <name>
+```
+ * C:\Users\HP\source\repos\rsaa\rsaa\bin\Debug\netcoreapp3.1>rsaa create-user Fiek.1
+Argumenti i dyte duhet te jete A-Z,a-z,0-9.
+
+C:\Users\HP\source\repos\rsaa\rsaa\bin\Debug\netcoreapp3.1>rsaa create-user Fiek1
+Eshte krijua celsi privat 'keys/Fiek1.xml'
+Eshte krijua celse publik 'keys/Fiek1.pub.xml'
+
+C:\Users\HP\source\repos\rsaa\rsaa\bin\Debug\netcoreapp3.1>rsaa create-user Fiek1
+Gabim: Celesi 'Fiek1' ekziston paraprakisht.
+
+C:\Users\HP\source\repos\rsaa\rsaa\bin\Debug\netcoreapp3.1>rsaa delete-user Fiek1
+Eshte larguar celsi privat 'keys/Fiek1.xml'
+Eshte larguar celse publik 'keys/Fiek1.pub.xml'
+
+C:\Users\HP\source\repos\rsaa\rsaa\bin\Debug\netcoreapp3.1>rsaa delete-user Fiek1
+Gabim: Celesi 'Fiek1' ekziston paraprakisht.
+
+```
+
 #### <write-message> <celesi publik> <mesazhi> : <file save>*
-
-
-
-
-
 
 
 
