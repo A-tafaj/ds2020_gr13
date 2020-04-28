@@ -5,7 +5,6 @@ namespace Transfer
     {
         public static void Main(String[] args)
         {
-
             if (args.Length > 0)
             {
                 if (args[0] == "export-key")
@@ -21,11 +20,7 @@ namespace Transfer
                     Console.WriteLine("Shtypni njeren nga keto komanda: <export-key> ose <import-key>");
                 }
 
-
             }
-
-
         }
     }
-
 }
