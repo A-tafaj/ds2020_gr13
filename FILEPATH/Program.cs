@@ -25,13 +25,34 @@ namespace RS
                     string randiv = "22221111";
                     if (File.Exists(pubkey))
                     {
-                        string publicKey = File.ReadAllText("keys/" + input + ".pub.xml");
-                        string tekst = args[2];
+                        if (args.Length == 3)
+                        {
 
-                        // Console.WriteLine(RSA.Encrypt(tekst, publicKey)+"\n\n");
-                        //  Console.WriteLine(publicKey);
-                        Console.WriteLine("\n" + Base64Encode(input) + "." + Base64Encode(randiv) + "." + RSA.Encrypt(randKey, publicKey) + "." + des.Encrypt(tekst, randKey, randiv));
 
+                            string publicKey = File.ReadAllText("keys/" + input + ".pub.xml");
+                            string tekst = args[2];
+
+                            // Console.WriteLine(RSA.Encrypt(tekst, publicKey)+"\n\n");
+                            //  Console.WriteLine(publicKey);
+                            Console.WriteLine("\n" + Base64Encode(input) + "." + Base64Encode(randiv) + "." + RSA.Encrypt(randKey, publicKey) + "." + des.Encrypt(tekst, randKey, randiv));
+                        }
+                        else if (args.Length>3)
+                        {
+                            string publicKey = File.ReadAllText("keys/" + input + ".pub.xml");
+                            string tekst = args[2];
+                            string file = args[3];
+                            using (StreamWriter sw = File.CreateText("files/" + file));
+
+                            string g = ("\n" + Base64Encode(input) + "." + Base64Encode(randiv) + "." + RSA.Encrypt(randKey, publicKey) + "." + des.Encrypt(tekst, randKey, randiv));
+                            File.WriteAllText("files/" + file, g);
+
+                            Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin" + "files/"+file);
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Celesi publik " + input + " nuk ekziston.");
                     }
                 }
                 else if (args[0] == "read-message")
@@ -59,7 +80,15 @@ namespace RS
                         string rsaKey_get = RSA.Decrypt(third, privateKey);
                         Console.WriteLine("Dekriptimi: " + des.Decrypt(fourth, rsaKey_get, iv_get));
                     }
+                    else
+                    {
+                        Console.WriteLine("Celesi privat " + input + " nuk ekziston.");
+                    }
 
+                }
+                else
+                {
+                    Console.WriteLine("Dy komandat e cashme jane: <write-message> dhe <read-message>");
                 }
 
 
