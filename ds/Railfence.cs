@@ -29,7 +29,7 @@ namespace ds
                     j = 0;
             }
 
-            //+++++++++++++++++++ print
+
 
             for (int i = 0; i < rows; i++)
             {
@@ -44,7 +44,7 @@ namespace ds
 
 
             return ciphertext;
-            // throw new NotImplementedException();
+
         }
 
 
