@@ -3,9 +3,9 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-namespace RS
+namespace FILE
 {
-    class Test
+    class Program
     {
         public static void Main(String[] args)
         {
@@ -17,12 +17,11 @@ namespace RS
                     string input = args[1];
                     string pubkey = "keys/" + input + ".pub.xml";
                     DESCryptoServiceProvider objDes = new DESCryptoServiceProvider();
-                    // objDes.GenerateKey();
-                    //objDes.GenerateIV();
-                    //string randKey = Convert.ToBase64String(objDes.Key);
-                    //string randIV = Convert.ToBase64String(objDes.IV);
-                    string randKey = "11112222";
-                    string randiv = "22221111";
+                    
+                    string randKey = Convert.ToBase64String(objDes.Key);                    
+                    string randiv = Convert.ToBase64String(objDes.IV);
+               
+                    
                     if (File.Exists(pubkey))
                     {
                         if (args.Length == 3)
@@ -31,7 +30,7 @@ namespace RS
 
                             string publicKey = File.ReadAllText("keys/" + input + ".pub.xml");
                             string tekst = args[2];
-
+                           
                             // Console.WriteLine(RSA.Encrypt(tekst, publicKey)+"\n\n");
                             //  Console.WriteLine(publicKey);
                             Console.WriteLine("\n" + WR.Base64Encode(input) + "." + WR.Base64Encode(randiv) + "." + WR.rsa_Encrypt(randKey, publicKey) + "." + WR.des_Encrypt(tekst, randKey, randiv));

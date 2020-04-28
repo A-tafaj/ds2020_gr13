@@ -13,11 +13,12 @@ namespace FILEPATH
             //string kk = Base64Decode(key);
             //string vv = Base64Decode(iv);
             byte[] bptext = Encoding.UTF8.GetBytes(plaintext);
-
+          //  byte[] pllugi = Convert.FromBase64String(key);
             DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
 
-            objDES.Key = Encoding.UTF8.GetBytes(key);
-            objDES.IV = Encoding.UTF8.GetBytes(iv);
+
+            objDES.Key = Convert.FromBase64String(key);
+            objDES.IV = Convert.FromBase64String(iv);
             objDES.Padding = PaddingMode.Zeros;
             objDES.Mode = CipherMode.ECB;
 
@@ -36,8 +37,8 @@ namespace FILEPATH
             byte[] bcptext = Convert.FromBase64String(ciphertext);
 
             DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
-            objDES.Key = Encoding.UTF8.GetBytes(key);
-            objDES.IV = Encoding.UTF8.GetBytes(iv);
+            objDES.Key = Convert.FromBase64String(key);
+            objDES.IV = Convert.FromBase64String(iv);
             objDES.Padding = PaddingMode.Zeros;
             objDES.Mode = CipherMode.ECB;
 
@@ -74,7 +75,7 @@ namespace FILEPATH
         {
             var bytesToDecrypt = Encoding.UTF8.GetBytes(textToDecrypt);
 
-            using (var rsa = new RSACryptoServiceProvider(2048))
+            using (var rsa = new RSACryptoServiceProvider())
             {
                 try
                 {
