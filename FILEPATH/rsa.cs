@@ -29,7 +29,7 @@ namespace RS
 
         public static string Decrypt(string textToDecrypt, string privateKeyString)
         {
-            var bytesToDescrypt = Encoding.UTF8.GetBytes(textToDecrypt);
+            var bytesToDecrypt = Encoding.UTF8.GetBytes(textToDecrypt);
 
             using (var rsa = new RSACryptoServiceProvider(2048))
             {

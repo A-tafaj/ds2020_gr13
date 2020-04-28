@@ -16,8 +16,8 @@ namespace FILEPATH
 
             DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
 
-
-
+            objDES.Key = Encoding.UTF8.GetBytes(key);
+            objDES.IV = Encoding.UTF8.GetBytes(iv);
             objDES.Padding = PaddingMode.Zeros;
             objDES.Mode = CipherMode.ECB;
 
@@ -36,11 +36,12 @@ namespace FILEPATH
             byte[] bcptext = Convert.FromBase64String(ciphertext);
 
             DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
-
+            objDES.Key = Encoding.UTF8.GetBytes(key);
+            objDES.IV = Encoding.UTF8.GetBytes(iv);
             objDES.Padding = PaddingMode.Zeros;
             objDES.Mode = CipherMode.ECB;
 
-            MemoryStream ms = new MemoryStream();
+            MemoryStream ms = new MemoryStream(bcptext);
             byte[] bdecrypted = new byte[ms.Length];
             CryptoStream cs = new CryptoStream(ms, objDES.CreateDecryptor(), CryptoStreamMode.Read);
             cs.Read(bdecrypted, 0, bdecrypted.Length);
