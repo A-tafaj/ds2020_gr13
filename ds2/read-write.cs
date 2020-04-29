@@ -10,10 +10,7 @@ namespace SIGURIA
     {
         public static string des_Encrypt(string plaintext, string key, string iv)
         {
-            //string kk = Base64Decode(key);
-            //string vv = Base64Decode(iv);
             byte[] bptext = Encoding.UTF8.GetBytes(plaintext);
-            //  byte[] pllugi = Convert.FromBase64String(key);
             DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
 
 
@@ -79,7 +76,6 @@ namespace SIGURIA
             {
                 try
                 {
-
                     rsa.FromXmlString(privateKeyString);
 
                     var resultBytes = Convert.FromBase64String(textToDecrypt);

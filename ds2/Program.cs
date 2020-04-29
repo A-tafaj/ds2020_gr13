@@ -55,7 +55,7 @@ namespace SIGURIA
                             File.WriteAllText(di + command2 + ".pub.xml", publicKey);
 
                             Console.WriteLine("Eshte krijua celsi privat '" + privkey + "'");
-                            Console.WriteLine("Eshte krijua celse publik '" + pubkey + "'");
+                            Console.WriteLine("Eshte krijua celsi publik '" + pubkey + "'");
 
                         }
                     }
@@ -63,6 +63,23 @@ namespace SIGURIA
                     {
                         Console.WriteLine("Kerkesa duhet te jete: create-user <emri>");
                         return;
+                    }
+                }
+                else if (command=="list-keys")//Komande shtese -> listimi i celesave (demo) 
+                {
+                    string[] publicKeys = Directory.GetFiles(@"C:\Users\Admin\Desktop\GIT\siguri-grup\ds2\keys\","*.pub.xml");
+                    string[] privateKeys = Directory.GetFiles(@"C:\Users\Admin\Desktop\GIT\siguri-grup\ds2\keys\", "*.xml");
+
+                    Console.WriteLine("--- Public Keys: ---");
+                    foreach (string celesi in publicKeys)
+                    {
+                        Console.WriteLine(celesi);
+                    }
+
+                    Console.WriteLine("--- Private Keys: ---");
+                    foreach (string celesi in privateKeys)
+                    {
+                        Console.WriteLine(celesi);
                     }
                 }
                 else if (command == "delete-user")
@@ -96,7 +113,7 @@ namespace SIGURIA
                                 File.Delete(privkey);
                                 File.Delete(pubkey);
                                 Console.WriteLine("Eshte larguar celsi privat '" + privkey + "'");
-                                Console.WriteLine("Eshte larguar celse publik '" + pubkey + "'");
+                                Console.WriteLine("Eshte larguar celsi publik '" + pubkey + "'");
                             }
                             else
                             {
@@ -116,6 +133,7 @@ namespace SIGURIA
                 else if (command == "write-message")
                 {
                     string input = args[1];
+
                     string pubkey = di + input + ".pub.xml";
                     DESCryptoServiceProvider objDes = new DESCryptoServiceProvider();
 
@@ -131,8 +149,6 @@ namespace SIGURIA
                             string publicKey = File.ReadAllText(di + input + ".pub.xml");
                             string tekst = args[2];
 
-                            // Console.WriteLine(RSA.Encrypt(tekst, publicKey)+"\n\n");
-                            //  Console.WriteLine(publicKey);
                             Console.WriteLine("\n" + WR.Base64Encode(input) + "." + WR.Base64Encode(randiv) + "." + WR.rsa_Encrypt(randKey, publicKey) + "." + WR.des_Encrypt(tekst, randKey, randiv));
                         }
                         else if (args.Length > 3)
@@ -149,7 +165,6 @@ namespace SIGURIA
                             Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin: " +di2 + file);
                         }
                     }
-
                     else
                     {
                         Console.WriteLine("Celesi publik " + input + " nuk ekziston.");
@@ -182,10 +197,7 @@ namespace SIGURIA
                     {
                         Console.WriteLine("Celesi privat " + input + " nuk ekziston.");
                     }
-
                 }
-
-
                 else
                 {
                     Console.WriteLine("Kerkesa duhet te jete: <create-user> <delete-user> <write-message> <read-message>");
