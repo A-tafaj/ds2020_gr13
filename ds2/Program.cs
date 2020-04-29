@@ -18,7 +18,7 @@ namespace SIGURIA
                 string command = args[0];
 
                 RsaEncryptor rsa;
-                DirectoryInfo di = Directory.CreateDirectory("keys/");
+                DirectoryInfo di = Directory.CreateDirectory(@"C:\Users\Admin\Desktop\GIT\siguri-grup\ds2\keys\");
 
                 if (command == "create-user")
                 {
@@ -140,13 +140,13 @@ namespace SIGURIA
                             string publicKey = File.ReadAllText(di + input + ".pub.xml");
                             string tekst = args[2];
                             string file = args[3];
-                            DirectoryInfo di2 = Directory.CreateDirectory("files/");
+                            DirectoryInfo di2 = Directory.CreateDirectory(@"C:\Users\Admin\Desktop\GIT\siguri-grup\ds2\files\");
                             using (StreamWriter sw = File.CreateText(di2 + file)) ;
 
                             string g = ("\n" + WR.Base64Encode(input) + "." + WR.Base64Encode(randiv) + "." + WR.rsa_Encrypt(randKey, publicKey) + "." + WR.des_Encrypt(tekst, randKey, randiv));
                             File.WriteAllText(di2 + file, g);
 
-                            Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin" + "files/" + file);
+                            Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin: " +di2 + file);
                         }
                     }
 
