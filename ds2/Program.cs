@@ -65,23 +65,7 @@ namespace SIGURIA
                         return;
                     }
                 }
-                else if (command=="list-keys")//Komande shtese -> listimi i celesave (demo) 
-                {
-                    string[] publicKeys = Directory.GetFiles(@"C:\Users\Admin\Desktop\GIT\siguri-grup\ds2\keys\","*.pub.xml");
-                    string[] privateKeys = Directory.GetFiles(@"C:\Users\Admin\Desktop\GIT\siguri-grup\ds2\keys\", "*.xml");
-
-                    Console.WriteLine("--- Public Keys: ---");
-                    foreach (string celesi in publicKeys)
-                    {
-                        Console.WriteLine(celesi);
-                    }
-
-                    Console.WriteLine("--- Private Keys: ---");
-                    foreach (string celesi in privateKeys)
-                    {
-                        Console.WriteLine(celesi);
-                    }
-                }
+                
                 else if (command == "delete-user")
                 {
                     try
@@ -126,6 +110,24 @@ namespace SIGURIA
                     {
                         Console.WriteLine("Kerkesa duhet te jete: delete-user <emri>");
                         return;
+
+                    }
+                }
+                else if (command == "list-keys")//Komande shtese -> listimi i celesave (needs to convert from path name > name:) 
+                {
+
+                    Dictionary<string, string> list_keys = new Dictionary<string, string>();
+                    string[] fCount = Directory.GetFiles(@"C:\Users\Admin\Desktop\GIT\siguri-grup\ds2\keys\", "*.xml");
+
+                    foreach (string k in fCount)
+                    {
+                        string val = File.ReadAllText(@k, Encoding.UTF8);
+                        list_keys.Add(k, val);
+
+                    }
+                    foreach (KeyValuePair<string, string> item in list_keys)
+                    {
+                        Console.WriteLine("Key: {0}, \nValue: {1}\n\n", item.Key, item.Value);
 
                     }
                 }
