@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SIGURIA
 {
@@ -31,8 +33,9 @@ namespace SIGURIA
 
         public static string des_Decrypt(string ciphertext, string key, string iv)
         {
+            
             byte[] bcptext = Convert.FromBase64String(ciphertext);
-
+            
             DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
             objDES.Key = Convert.FromBase64String(key);
             objDES.IV = Convert.FromBase64String(iv);
@@ -41,6 +44,7 @@ namespace SIGURIA
 
             MemoryStream ms = new MemoryStream(bcptext);
             byte[] bdecrypted = new byte[ms.Length];
+
             CryptoStream cs = new CryptoStream(ms, objDES.CreateDecryptor(), CryptoStreamMode.Read);
             cs.Read(bdecrypted, 0, bdecrypted.Length);
             cs.Close();
@@ -50,38 +54,36 @@ namespace SIGURIA
 
         public static string rsa_Encrypt(string textToEncrypt, string publicKeyString)
         {
-            var bytesToEncrypt = Encoding.UTF8.GetBytes(textToEncrypt);
+            byte[] bytesToEncrypt = Encoding.UTF8.GetBytes(textToEncrypt);
+            var rsa = new RSACryptoServiceProvider();
 
-            using (var rsa = new RSACryptoServiceProvider())
+            try
             {
-                try
-                {
-                    rsa.FromXmlString(publicKeyString.ToString());
-                    var encryptedData = rsa.Encrypt(bytesToEncrypt, true);
-                    var base64Encrypted = Convert.ToBase64String(encryptedData);
-                    return base64Encrypted;
-                }
-                finally
-                {
-                    rsa.PersistKeyInCsp = false;
-                }
+                rsa.FromXmlString(publicKeyString.ToString());
+                byte[] encryptedData = rsa.Encrypt(bytesToEncrypt, true);
+                string base64Encrypted = Convert.ToBase64String(encryptedData);
+                return base64Encrypted;
             }
+
+            finally
+            {
+                rsa.PersistKeyInCsp = false;
+            }
+            
         }
 
         public static string rsa_Decrypt(string textToDecrypt, string privateKeyString)
         {
-            var bytesToDecrypt = Encoding.UTF8.GetBytes(textToDecrypt);
-
+            byte[] bytesToDecrypt = Encoding.UTF8.GetBytes(textToDecrypt);
             using (var rsa = new RSACryptoServiceProvider())
             {
                 try
                 {
                     rsa.FromXmlString(privateKeyString);
-
-                    var resultBytes = Convert.FromBase64String(textToDecrypt);
-                    var decryptedBytes = rsa.Decrypt(resultBytes, true);
-                    var decryptedData = Encoding.UTF8.GetString(decryptedBytes);
-                    return decryptedData.ToString();
+                    byte[] resultBytes = Convert.FromBase64String(textToDecrypt);
+                    byte[] decryptedBytes = rsa.Decrypt(resultBytes, true); 
+                    string decryptedData = Encoding.UTF8.GetString(decryptedBytes);
+                    return decryptedData;
                 }
                 finally
                 {
@@ -89,15 +91,22 @@ namespace SIGURIA
                 }
             }
         }
-        public static string Base64Encode(string plainText)
+        public static string Base64Encode(string plaintext)
         {
-            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
-            return Convert.ToBase64String(plainTextBytes);
+            var plaintextBytes = Encoding.UTF8.GetBytes(plaintext);
+            return Convert.ToBase64String(plaintextBytes);
         }
         public static string Base64Decode(string plaintext)
         {
             var plaintextBytes = Convert.FromBase64String(plaintext);
             return Encoding.UTF8.GetString(plaintextBytes);
+        }
+
+        public static bool Check_Base64(string check)
+        {
+            check = check.Trim();
+            return (check.Length % 4 == 0) && Regex.IsMatch(check, @"^[a-zA-Z0-9\+/]*={0,3}$", RegexOptions.None);
+
         }
     }
 }

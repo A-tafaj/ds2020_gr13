@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.IO;
+using System.Threading;
 
 namespace SIGURIA
 {
@@ -101,7 +102,7 @@ namespace SIGURIA
                             }
                             else
                             {
-                                Console.WriteLine("Gabim: Celesi '" + command2 + "' ekziston paraprakisht.");
+                                Console.WriteLine("Gabim: Celesi '" + command2 + "' nuk ekziston.");
                             }
                         }
 
@@ -153,7 +154,7 @@ namespace SIGURIA
 
                             Console.WriteLine("\n" + WR.Base64Encode(input) + "." + WR.Base64Encode(randiv) + "." + WR.rsa_Encrypt(randKey, publicKey) + "." + WR.des_Encrypt(tekst, randKey, randiv));
                         }
-                        else if (args.Length > 3)
+                        else if (args.Length == 4)
                         {
                             string publicKey = File.ReadAllText(di + input + ".pub.xml");
                             string tekst = args[2];
@@ -165,6 +166,10 @@ namespace SIGURIA
                             File.WriteAllText(di2 + file, g);
 
                             Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin: " +di2 + file);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Numri i argumenteve nuk eshte valid!");
                         }
                     }
                     else
@@ -181,23 +186,29 @@ namespace SIGURIA
                     string second = array[1];
                     string third = array[2];
                     string fourth = array[3];
-
-                    string input = WR.Base64Decode(firstElem);
-                    string privkey = di + input + ".xml";
-
-                    if (File.Exists(privkey))
+                    if (WR.Check_Base64(firstElem) && WR.Check_Base64(second) && WR.Check_Base64(third) && WR.Check_Base64(fourth))
                     {
-                        Console.WriteLine("Marresi: " + input);
-                        string privateKey = File.ReadAllText(di + input + ".xml");
+                        string input = WR.Base64Decode(firstElem);
+                        string privkey = di + input + ".xml";
 
-                        string iv_get = WR.Base64Decode(second);
+                        if (File.Exists(privkey))
+                        {
+                            Console.WriteLine("Marresi: " + input);
+                            string privateKey = File.ReadAllText(di + input + ".xml");
 
-                        string rsaKey_get = WR.rsa_Decrypt(third, privateKey);
-                        Console.WriteLine("Dekriptimi: " + WR.des_Decrypt(fourth, rsaKey_get, iv_get));
+                            string iv_get = WR.Base64Decode(second);
+
+                            string rsaKey_get = WR.rsa_Decrypt(third, privateKey);
+                            Console.WriteLine("Dekriptimi: " + WR.des_Decrypt(fourth, rsaKey_get, iv_get));
+                        }
+                        else
+                        {
+                            Console.WriteLine("Celesi privat " + input + " nuk ekziston.");
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("Celesi privat " + input + " nuk ekziston.");
+                        Console.WriteLine("Nuk eshte Base64!");
                     }
                 }
                 else
