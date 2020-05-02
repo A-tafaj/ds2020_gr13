@@ -172,9 +172,7 @@ namespace SIGURIA
                                 string tekst = args[2];
 
                                 // Console.WriteLine(RSA.Encrypt(tekst, publicKey)+"\n\n");
-                                Console.WriteLine("\n" + "+++++++++++" + publicKey + "\n");
-                                Console.WriteLine("\n" + "+++++++++++" + privateKey + "\n");//++++++++++++
-                                Console.WriteLine("++++++++++++++++\n" + WR.Base64Encode(input) + "." + WR.Base64Encode(randiv) + "." + WR.rsa_Encrypt(randKey, publicKey) + "." + WR.des_Encrypt(tekst, randKey, randiv));
+                                Console.WriteLine("\n" + WR.Base64Encode(input) + "." + WR.Base64Encode(randiv) + "." + WR.rsa_Encrypt(randKey, publicKey) + "." + WR.des_Encrypt(tekst, randKey, randiv));
                             }
                             else if (args.Length > 3)
                             {
