@@ -166,9 +166,6 @@ namespace SIGURIA
                             {
 
                                 string publicKey = File.ReadAllText(di + input + ".pub.xml");
-                                //++++++
-                                string privateKey = File.ReadAllText(di + input + ".xml");
-                                //++++++
                                 string tekst = args[2];
 
                                 // Console.WriteLine(RSA.Encrypt(tekst, publicKey)+"\n\n");
