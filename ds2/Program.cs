@@ -114,6 +114,87 @@ namespace SIGURIA
 
                     }
                 }
+                                else if (command == "export-key")
+                {
+                    try
+                    {
+                        if (args[1].Length != 0 && args[2].Length != 0)
+                        {
+                            string type = args[1];
+                            string name = args[2];
+                            //DirectoryInfo dir = Directory.CreateDirectory("keys/");
+                            //We have di for directory $top.
+                            string privKeysDir = /*dir*/ di + name + ".xml";
+                            string pubKeysDir = /*dir*/di +name + ".pub.xml";
+                            if (File.Exists(pubKeysDir) && File.Exists(privKeysDir))
+                            {
+                                if (args.Length == 3)
+                                {
+                                    if (type == "public")
+                                    {
+                                        string publicKey = File.ReadAllText(/*dir*/ di + name + ".pub.xml");
+                                        char[] seperator = { '>' };////
+                                        String[] strlist = publicKey.Split(seperator);
+                                        foreach(String s in strlist){Console.Write(s + ">"); Console.WriteLine();}
+                                        //string publicKey = File.ReadAllText(/*dir*/ di + name + ".pub.xml");
+                                        //Console.WriteLine("\n" + publicKey + "\n");
+                                    }
+                                    else if (type == "private")
+                                    {
+                                        string privateKey = File.ReadAllText(/*dir*/ di + name + ".xml");
+                                        privateKey = privateKey.Replace(">", ">" + System.Environment.NewLine);
+                                        Console.WriteLine("\n" + privateKey + "\n");
+                                    }
+                                }
+                                else if (args.Length == 4/*> 3*/)
+                                {
+                                    string expFile = args[3];
+                                    DirectoryInfo expDir = Directory.CreateDirectory("exported/");
+                                    using (StreamWriter strw = File.CreateText(expDir + expFile)) ;
+                                    string publicKey = File.ReadAllText(/*dir*/ di + name + ".pub.xml");//
+                                    File.WriteAllText(expDir + expFile, publicKey);
+                                    Console.WriteLine("Celesi publik u ruajt ne fajllin " + expFile + ".xml");
+                                }
+                            }
+                            else if(File.Exists(pubKeysDir) && !File.Exists(privKeysDir))
+                            {
+
+                                if (args.Length == 3)
+                                {
+                                    if (type == "public")
+                                    {
+                                        string publicKey = File.ReadAllText(/*dir*/ di + name + ".pub.xml");
+                                        Console.WriteLine("\n" + publicKey + "\n");
+                                    }
+                                    else if (type == "private")
+                                    {
+                                        //string privateKey = File.ReadAllText(/*dir*/ di + name + ".xml");
+                                        Console.WriteLine("\nGabim: Celesi privat " + name + " nuk ekziston\n");
+                                    }
+                                }
+                                else if (args.Length == 4/*> 3*/)
+                                {
+                                    string expFile = args[3];
+                                    DirectoryInfo expDir = Directory.CreateDirectory("exported/");
+                                    using (StreamWriter strw = File.CreateText(expDir + expFile)) ;
+                                    string publicKey = File.ReadAllText(/*dir*/ di + name + ".pub.xml");//
+                                    File.WriteAllText(expDir + expFile, publicKey);
+                                    Console.WriteLine("Celesi publik u ruajt ne fajllin " + expFile);
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Gabim: Celesi publik " + name +" nuk ekziston.");
+                            }
+                        
+                        }
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Kerkesa duhet te jete: export-key <public|private> <name> dhe [file] opsionale");
+                    }
+                }
+                
                 else if (command == "list-keys")//Komande shtese -> listimi i celesave (needs to convert from path name > name:) 
                 {
 
