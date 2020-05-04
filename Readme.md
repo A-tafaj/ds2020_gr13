@@ -10,7 +10,7 @@ Check if .NET Core is installed on your OS.
 
 ```$ dotnet --info```
 
-if it's not:
+if not:
 
 Install the [.NET Core].
 
@@ -24,9 +24,9 @@ Clone the repository or direct download from [Github].
 ```$ git clone https://github.com/shabanlushaj/ds2020_gr13```
 
 
-Go to folder 'ds2':
+Go to folder 'ds':
 
-```$ cd ./ds2/```
+```$ cd ./ds/```
 
 
 Run program:
@@ -54,7 +54,7 @@ Now excecute the commands:
 
 create an alias to call it simplier:
 
-```$ alias ds=./ds2.exe```
+```$ alias ds=./ds.exe```
 
 
 1.Generates a pair of private and public keys. XML-format
@@ -85,7 +85,7 @@ Gabim: Celesi 'edon' nuk ekziston.
 ```
 
 
-3.Encrypts a message with a users public key.
+3.Encrypts a message with users public key.
 
 ##### ```<write-message> <user-name> <text> || [file]```
 
@@ -98,7 +98,7 @@ Mesazhi i enkriptuar u ruajt ne fajllin: C:\Users\Admin\Desktop\GIT\siguri-grup\
 ```
 
 
-4.Decrypts a message with a users private key.
+4.Decrypts a message with users private key.
 
 ##### ```<read-message> <text>```
 
