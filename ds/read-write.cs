@@ -15,7 +15,6 @@ namespace ds
             byte[] bptext = Encoding.UTF8.GetBytes(plaintext);
             DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
 
-
             objDES.Key = Convert.FromBase64String(key);
             objDES.IV = Convert.FromBase64String(iv);
             objDES.Padding = PaddingMode.Zeros;
@@ -31,9 +30,9 @@ namespace ds
             return Convert.ToBase64String(bciphertext);
         }
 
+        //valid key^iv size 
         public static string des_Decrypt(string ciphertext, string key, string iv)
         {
-            
             byte[] bcptext = Convert.FromBase64String(ciphertext);
             
             DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
@@ -71,7 +70,6 @@ namespace ds
             }
             
         }
-
         public static string rsa_Decrypt(string textToDecrypt, string privateKeyString)
         {
             byte[] bytesToDecrypt = Encoding.UTF8.GetBytes(textToDecrypt);

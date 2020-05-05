@@ -15,7 +15,7 @@ namespace ds
 				string command = args[0];
 
                 RsaEncryptor rsa;
-                DirectoryInfo di = Directory.CreateDirectory(@"C:\Users\Admin\Desktop\GIT\siguri-grup\ds2\keys\");
+                DirectoryInfo di = Directory.CreateDirectory(@"../../../keys/");
 
                 if (command == "create-user")
                 {
@@ -51,8 +51,8 @@ namespace ds
                             File.WriteAllText(di + command2 + ".xml", privateKey);
                             File.WriteAllText(di + command2 + ".pub.xml", publicKey);
 
-                            Console.WriteLine("Eshte krijua celsi privat '" + privkey + "'");
-                            Console.WriteLine("Eshte krijua celsi publik '" + pubkey + "'");
+                            Console.WriteLine("Eshte krijuar celsi privat: 'keys/{0}.xml'", command2);
+                            Console.WriteLine("Eshte krijuar celsi publik: 'keys/{0}.pub.xml'",command2);
 
                         }
                     }
@@ -93,8 +93,8 @@ namespace ds
                             {
                                 File.Delete(privkey);
                                 File.Delete(pubkey);
-                                Console.WriteLine("Eshte larguar celsi privat '" + privkey + "'");
-                                Console.WriteLine("Eshte larguar celsi publik '" + pubkey + "'");
+                                Console.WriteLine("Eshte larguar celsi privat: 'keys/{0}.xml'", command2);
+                                Console.WriteLine("Eshte larguar celsi publik: 'keys/{0}.pub.xml'",command2);
                             }
                             else
                             {
@@ -195,7 +195,7 @@ namespace ds
                 {
 
                     Dictionary<string, string> list_keys = new Dictionary<string, string>();
-                    string[] fCount = Directory.GetFiles(@"C:\Users\Admin\Desktop\GIT\siguri-grup\ds2\keys\", "*.xml");
+                    string[] fCount = Directory.GetFiles(@"../../../keys/", "*.xml");
 
                     foreach (string k in fCount)
                     {
@@ -206,7 +206,6 @@ namespace ds
                     foreach (KeyValuePair<string, string> item in list_keys)
                     {
                         Console.WriteLine("Key: {0}, \nValue: {1}\n\n", item.Key, item.Value);
-
                     }
                 }
 
@@ -229,20 +228,21 @@ namespace ds
                             string publicKey = File.ReadAllText(di + input + ".pub.xml");
                             string tekst = args[2];
 
-                            Console.WriteLine("\n" + WR.Base64Encode(input) + "." + WR.Base64Encode(randiv) + "." + WR.rsa_Encrypt(randKey, publicKey) + "." + WR.des_Encrypt(tekst, randKey, randiv));
+                            Console.WriteLine(WR.Base64Encode(input) + "." + WR.Base64Encode(randiv) + "." + WR.rsa_Encrypt(randKey, publicKey) + "." + WR.des_Encrypt(tekst, randKey, randiv));
                         }
                         else if (args.Length == 4)
                         {
-                            string publicKey = File.ReadAllText(di + input + ".pub.xml");
+                             string publicKey = File.ReadAllText(di + input + ".pub.xml");
                             string tekst = args[2];
                             string file = args[3];
-                            DirectoryInfo di2 = Directory.CreateDirectory(@"C:\Users\Admin\Desktop\GIT\siguri-grup\ds2\files\");
+                            DirectoryInfo di2 = Directory.CreateDirectory(@"../../../files/");
                             using (StreamWriter sw = File.CreateText(di2 + file)) ;
 
                             string g = ("\n" + WR.Base64Encode(input) + "." + WR.Base64Encode(randiv) + "." + WR.rsa_Encrypt(randKey, publicKey) + "." + WR.des_Encrypt(tekst, randKey, randiv));
                             File.WriteAllText(di2 + file, g);
 
-                            Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin: " +di2 + file);
+                            Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin: files/{0}", file);
+
                         }
                         else
                         {
@@ -251,7 +251,7 @@ namespace ds
                     }
                     else
                     {
-                        Console.WriteLine("Celesi publik " + input + " nuk ekziston.");
+                        Console.WriteLine("Celesi publik: {0} nuk ekziston " , input);
                     }
                 }
                 else if (command == "read-message")
@@ -272,11 +272,31 @@ namespace ds
                         {
                             Console.WriteLine("Marresi: " + input);
                             string privateKey = File.ReadAllText(di + input + ".xml");
-
-                            string iv_get = WR.Base64Decode(second);
-
-                            string rsaKey_get = WR.rsa_Decrypt(third, privateKey);
-                            Console.WriteLine("Dekriptimi: " + WR.des_Decrypt(fourth, rsaKey_get, iv_get));
+                            try
+                            {
+                                string iv_get = WR.Base64Decode(second);
+                                try
+                                {
+                                    string rsaKey_get = WR.rsa_Decrypt(third, privateKey);
+                                    try
+                                    {
+                                        Console.WriteLine("Dekriptimi: " + WR.des_Decrypt(fourth, rsaKey_get, iv_get));
+                                    }
+                                    catch (Exception)
+                                    {                              
+                                        Console.WriteLine("Error: {0}");
+                                        
+                                    }
+                                }
+                                catch (Exception e)
+                                {                              
+                                    Console.WriteLine("Error: {0}",e);                
+                                }           
+                            }
+                            catch (Exception e)
+                            {                              
+                                Console.WriteLine("Error: {0}",e);                    
+                            }
                         }
                         else
                         {
