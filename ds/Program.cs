@@ -126,14 +126,20 @@ namespace ds
                             {
                                 if (args.Length == 3)
                                 {
-                                    if (type == "public")
+                                    /*if (type == "public")
                                     {
-                                        string publicKey = File.ReadAllText(/*dir*/ di + name + ".pub.xml");
-                                        char[] seperator = { '>' };////
+                                        string publicKey = File.ReadAllText(di + name + ".pub.xml");
+                                        char[] seperator = { '>' };
                                         String[] strlist = publicKey.Split(seperator);
                                         foreach(String s in strlist){Console.Write(s + ">"); Console.WriteLine();}
-                                        //string publicKey = File.ReadAllText(/*dir*/ di + name + ".pub.xml");
-                                        //Console.WriteLine("\n" + publicKey + "\n");
+
+                                    }*/
+				if (type == "public")
+                                    {
+                                        string publicKey = File.ReadAllText(/*dir*/ di + name + ".pub.xml");
+                                        publicKey = publicKey.Replace(">", ">" + System.Environment.NewLine);
+                                        Console.WriteLine("\n" + publicKey + "\n");
+
                                     }
                                     else if (type == "private")
                                     {
